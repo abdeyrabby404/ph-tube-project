@@ -18,6 +18,17 @@ function loadCategories() {
 //     },
 
 
+const loadCategoriesVideo = (id) => {
+  // console.log(id);
+  const url = `
+  https://openapi.programming-hero.com/api/phero-tube/category/${id}
+  `;
+  // console.log(url)
+  fetch(url)
+  .then(res => res.json())
+  .then(data => displayVideos(data.category))
+}
+
 const loadVideos = () => {
   fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
     .then(response => response.json())
@@ -34,7 +45,7 @@ function displayCategories(categories) {
   for (const cat of categories) {
     const newDivForCategory = document.createElement("div");
     newDivForCategory.innerHTML = `
-            <button class="btn btn-sm  hover:bg-[#FF1F3D] hover:text-white">${cat.category}</button>
+            <button onclick="loadCategoriesVideo(${cat.category_id})" class="btn btn-sm hover:bg-[#FF1F3D] hover:text-white">${cat.category}</button>
             `;
     // newDivForCategory.appendChild()
     categoryContainer.append(newDivForCategory)
@@ -45,6 +56,7 @@ function displayCategories(categories) {
 const displayVideos = (videos) => {
   // console.log(videos)
   const cardContainer = document.getElementById("cardContainer");
+  cardContainer.innerHTML="";
   // console.log(cardContainer)
   videos.forEach(video => {
     const videoCard = document.createElement("div")
@@ -80,7 +92,7 @@ const displayVideos = (videos) => {
                 <div class="flex gap-4">
                     <div class="profile">
                         <div class="avatar">
-                            <div class="w-14 h-14 rounded-full">
+                            <div class="w-10 h-10 rounded-full">
                                 <img class="" src="${video.authors[0].profile_picture}" />
                             </div>
                         </div>
@@ -88,7 +100,7 @@ const displayVideos = (videos) => {
                     <di class="space-y-2">
                         <h1 class="text-2xl font-bold">${video.title}</h1>
                         <p class="text-lg flex text-gray-500"> ${video.authors[0].profile_name} <img class="w-7 h-7" src="https://img.icons8.com/?size=48&id=QMxOVe0B9VzG&format=png" alt=""> </p>
-                        <p class="text-lg text-gray-500">${video.others.views}</p>
+                        <p class="text-lg text-gray-500">${video.others.views} views</p>
                     </div>
 
                 </div>
@@ -181,4 +193,4 @@ const displayVideos = (videos) => {
 
 
 loadCategories();
-loadVideos();
+// loadVideos();
