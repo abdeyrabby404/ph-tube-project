@@ -1,5 +1,12 @@
 // const { createElement } = require("react");
-
+const showLoader = () => {
+  document.getElementById("loader").classList.remove("hidden");
+  document.getElementById("cardContainer").classList.add("hidden");
+}
+const hideLoader = () => {
+  document.getElementById("loader").classList.add("hidden");
+  document.getElementById("cardContainer").classList.remove("hidden");
+}
 
 const activeClassBtn = () => {
   const removeActiveClass = document.getElementsByClassName("active");
@@ -12,6 +19,7 @@ const activeClassBtn = () => {
 
 
 const loadVideoDetails = (video_id) => {
+  showLoader();
   const url = `https://openapi.programming-hero.com/api/phero-tube/video/${video_id}`
   console.log(url)
   fetch(url).then(res => res.json()).then(data => displayVideoDetails(data.video))
@@ -29,6 +37,7 @@ const displayVideoDetails = (video) => {
               <h1 class="font-semibold text-lg mt-2 text-center"><u class="text-center">Description</u> <br>${video.description}</h1>
                 </div>
   `;
+  hideLoader();
 }
  
 function loadCategories() {
