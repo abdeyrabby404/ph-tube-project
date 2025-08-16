@@ -9,6 +9,12 @@
     <!-- DaisyUI and Tailwind CDN  -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        .active{
+            background-color: #FF1F3D;
+            color: white;
+        }
+    </style>
 
 </head>
 
@@ -27,12 +33,18 @@
         </nav>
     </header>
     <nav id="categoryContainer" class="py-5 flex justify-center gap-5">
-        <button onclick="loadVideos()" class="btn btn-sm oncli bg-[#FF1F3D] text-white">All</button>
+        <button id="btn-All" onclick="loadVideos()" class="btn btn-sm  hover:bg-[#FF1F3D] hover:text-white">All</button>
     </nav>
 
     <section id="cardContainer" class="w-11/12 mx-auto grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4 lg:gap-4">
-        
-        
+
+        <div class="col-span-full text-center flex flex-col items-center py-24 space-y-4">
+            <img class="w-56" src="./assets/Icon.png" alt="">
+            <h2 class="font-bold text-3xl">Oops!! Sorry, There is no content here <br> Press <span
+                    class="btn btn-small text-black py-2 hover:bg-[#FF1F3D] hover:text-white" onclick="loadVideos()">All</span> to show
+                available contents!</h2>
+        </div>
+
     </section>
 
 

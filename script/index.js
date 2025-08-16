@@ -1,5 +1,15 @@
 // const { createElement } = require("react");
 
+
+const activeClassBtn = () => {
+  const removeActiveClass = document.getElementsByClassName("active");
+  // console.log(removeActiveClass)
+  for (let btn of removeActiveClass){
+    btn.classList.remove("active");
+  }
+
+}
+
 function loadCategories() {
   fetch("https://openapi.programming-hero.com/api/phero-tube/categories")
     .then((res) => res.json())
@@ -26,13 +36,28 @@ const loadCategoriesVideo = (id) => {
   // console.log(url)
   fetch(url)
   .then(res => res.json())
-  .then(data => displayVideos(data.category))
+  .then(data => {
+
+    activeClassBtn();
+
+    const buttonClickColorClass = document.getElementById(`btn-${id}`)
+    console.log(buttonClickColorClass);
+    buttonClickColorClass.classList.add("active")
+
+    displayVideos(data.category)
+  })
 }
 
 const loadVideos = () => {
   fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
     .then(response => response.json())
-    .then(data => displayVideos(data.videos))
+    .then(data => {
+      const allBtn = document.getElementById("btn-All");
+      activeClassBtn();
+      allBtn.classList.add("active")
+      
+      displayVideos(data.videos)
+    })
 }
 
 
@@ -45,7 +70,7 @@ function displayCategories(categories) {
   for (const cat of categories) {
     const newDivForCategory = document.createElement("div");
     newDivForCategory.innerHTML = `
-            <button onclick="loadCategoriesVideo(${cat.category_id})" class="btn btn-sm hover:bg-[#FF1F3D] hover:text-white">${cat.category}</button>
+            <button id="btn-${cat.category_id}" onclick="loadCategoriesVideo(${cat.category_id})" class="btn btn-sm hover:bg-[#FF1F3D] hover:text-white">${cat.category}</button>
             `;
     // newDivForCategory.appendChild()
     categoryContainer.append(newDivForCategory)
@@ -56,8 +81,26 @@ function displayCategories(categories) {
 const displayVideos = (videos) => {
   // console.log(videos)
   const cardContainer = document.getElementById("cardContainer");
+  
+  // this is use for turn of repeatation content 
   cardContainer.innerHTML="";
   // console.log(cardContainer)
+
+  if(videos.length == 0){
+    
+    cardContainer.innerHTML = `
+    <div class="col-span-full text-center flex flex-col items-center py-24 space-y-4">
+            <img class="w-56" src="./assets/Icon.png" alt="">
+            <h2 class="font-bold text-3xl">Oops!! Sorry, There is no content here <br> Press <span
+                    class="btn btn-small text-black py-2 hover:bg-[#FF1F3D] hover:text-white" onclick="loadVideos()">All</span> to show
+                available contents!</h2>
+        </div>
+    `;
+    return;
+  }
+
+
+
   videos.forEach(video => {
     const videoCard = document.createElement("div")
     // console.log(videoCard)
@@ -111,30 +154,6 @@ const displayVideos = (videos) => {
   }
   )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // const displayVideos = (videos) => {
 //     const cardContainer = document.getElementById("cardContainer");
 
@@ -161,36 +180,6 @@ const displayVideos = (videos) => {
 //         cardContainer.append(videoCard)
 //     });
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 loadCategories();
 // loadVideos();
