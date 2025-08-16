@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
-        .active{
+        .active {
             background-color: #FF1F3D;
             color: white;
         }
@@ -41,13 +41,29 @@
         <div class="col-span-full text-center flex flex-col items-center py-24 space-y-4">
             <img class="w-56" src="./assets/Icon.png" alt="">
             <h2 class="font-bold text-3xl">Oops!! Sorry, There is no content here <br> Press <span
-                    class="btn btn-small text-black py-2 hover:bg-[#FF1F3D] hover:text-white" onclick="loadVideos()">All</span> to show
-                available contents!</h2>
+                    class="btn btn-small text-black py-2 hover:bg-[#FF1F3D] hover:text-white"
+                    onclick="loadVideos()">All</span> to show
+                availablSe contents!</h2>
         </div>
 
     </section>
 
+    <!-- Modal section  -->
+    <dialog id="video_modal" class="modal">
+        <div class="modal-box">
+            <div id="modalInfo">
 
+            </div>
+            <div class="modal-action">
+                <form method="dialog">
+                    <!-- if there is a button in form, it will close the modal -->
+                    <button class="btn">Close</button>
+                </form>
+            </div>
+        </div>
+    </dialog>
+
+    
     <script src="script/index.js"></script>
 </body>
 
